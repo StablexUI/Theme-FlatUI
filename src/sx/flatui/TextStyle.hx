@@ -1,4 +1,4 @@
-package sx.flatui.styles;
+package sx.flatui;
 
 import sx.layout.Layout;
 import sx.properties.Align;

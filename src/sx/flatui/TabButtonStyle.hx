@@ -1,4 +1,4 @@
-package sx.flatui.styles;
+package sx.flatui;
 
 import sx.skins.PaintSkin;
 import sx.skins.Skin;
@@ -6,6 +6,7 @@ import sx.flatui.FlatUITheme;
 import sx.widgets.special.TabButton;
 import sx.widgets.Widget;
 import sx.properties.Align;
+import sx.themes.Theme;
 
 using sx.Sx;
 

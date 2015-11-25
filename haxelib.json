@@ -1,0 +1,14 @@
+{
+    "name"         : "stablexui-theme-flatui",
+    "url"          : "https://github.com/StablexUI/Theme-FlatUI",
+    "license"      : "MIT",
+    "tags"         : ["stablexui", "ui", "gui", "flatui", "flat"],
+    "description"  : "FlatUI theme for StablexUI.",
+    "version"      : "0.1.0",
+    "releasenote"  : "Initial release. ",
+    "classPath"    : "src",
+    "contributors" : ["RealyUniqueName"],
+    "dependencies" : {
+        "stablexui-core"  : ""
+    }
+}

@@ -1,4 +1,4 @@
-package sx.flatui.styles;
+package sx.flatui;
 
 import sx.properties.Orientation;
 import sx.skins.ASkin;

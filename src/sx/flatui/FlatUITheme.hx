@@ -1,5 +1,6 @@
 package sx.flatui;
 
+import sx.themes.Theme;
 import sx.backend.TextFormat;
 import sx.backend.BitmapData;
 import sx.layout.LineLayout;
@@ -7,17 +8,18 @@ import sx.skins.ASkin;
 import sx.skins.PaintSkin;
 import sx.skins.Skin;
 import sx.flatui.Icons;
-import sx.flatui.styles.ButtonStyle;
-import sx.flatui.styles.CheckBoxStyle;
-import sx.flatui.styles.ProgressBarStyle;
-import sx.flatui.styles.RadioStyle;
-import sx.flatui.styles.SliderStyle;
-import sx.flatui.styles.ScrollBarStyle;
-import sx.flatui.styles.TextInputStyle;
-import sx.flatui.styles.TabBarStyle;
-import sx.flatui.styles.TabButtonStyle;
-import sx.flatui.styles.TextStyle;
-import sx.flatui.styles.ScrollStyle;
+import sx.flatui.ButtonStyle;
+import sx.flatui.CheckBoxStyle;
+import sx.flatui.ProgressBarStyle;
+import sx.flatui.RadioStyle;
+import sx.flatui.SliderStyle;
+import sx.flatui.ScrollBarStyle;
+import sx.flatui.TextInputStyle;
+import sx.flatui.TabBarStyle;
+import sx.flatui.TabButtonStyle;
+import sx.flatui.TextStyle;
+import sx.flatui.ScrollStyle;
+import sx.widgets.Bmp;
 import sx.widgets.Text;
 import sx.widgets.Widget;
 import sx.Sx;
@@ -115,7 +117,7 @@ class FlatUITheme extends Theme
     /** Default height for widgets */
     static public var DEFAULT_HEIGHT = 36;
     /** Default size for icons */
-    static public inline var DEFAULT_ICO_SIZE = 18;
+    static public var DEFAULT_ICO_SIZE = 18;
     /** Default horizontal padding */
     static public var DEFAULT_PADDING_HORIZONTAL = 12;
     /** Default vertical padding */
@@ -127,39 +129,62 @@ class FlatUITheme extends Theme
     /** Default width for borders */
     static public var DEFAULT_BORDER_WIDTH = 2;
     /** Height for greater elements */
-    static public inline var GREATER_HEIGHT = 50;
+    static public var GREATER_HEIGHT = 50;
     /** Greater radius for border corners (e.g. for progress bars) */
     static public var GREATER_CORNER_RADIUS = 6;
 
-#if stablexui_flash
-    static private var __grayscaleFilter : flash.filters.ColorMatrixFilter;
-#end
 
-    /** Bitmaps ready for usage */
-    static public var loadedBitmaps : Map<String,BitmapData> = new Map();
+    /**
+     * Get theme assets by identified by path
+     */
+    static public dynamic function getBitmapData (path:String) : BitmapData
+    {
+        #if stablexui_flash
+            var bitmapData = sx.flatui.flash.Assets.getBitmapData(path);
+        #else
+            var bitmapData = null;
+        #end
+
+        return bitmapData;
+    }
+
+
+    /**
+     * Set specified color for Bmp widget via tinting
+     */
+    static public dynamic function setBmpColor (bmp:Bmp, color:Int) : Void
+    {
+        #if stablexui_flash
+            sx.flatui.flash.Effects.tintBitmapData(bmp.renderer.bitmapData, color - 0xFFFFFF);
+        #end
+    }
+
+
+    /**
+     * Load assets for this theme
+     */
+    static public dynamic function loadAssets (onReady:Void->Void) : Void
+    {
+        #if stablexui_flash
+            sx.flatui.flash.Assets.loadBitmaps(onReady);
+        #else
+            onReady();
+        #end
+    }
 
 
     /**
      * Creates "native" text format description.
      */
-    static public dynamic function textFormat (sizePx:Float, color:Int, bold:Bool, font:String = null) : TextFormat
+    static public dynamic function textFormat (sizePx:Float, color:Int, bold:Bool, font:String = 'Arial') : TextFormat
     {
         #if stablexui_flash
-            if (font == null) font = 'Arial';
-            var format = new flash.text.TextFormat(font);
-            //OpenFL requires integer values for text size, so we don't need Sx.snap()
-            #if openfl
-                format.size = Math.round(sizePx);
-            #else
-                format.size = Sx.snap(sizePx);
-            #end
-            format.color = color;
-            format.bold  = bold;
-
-            return format;
+            var format = sx.flatui.flash.Effects.textFormat(sizePx, color, bold);
         #else
-            return null;
+            var format = null;
         #end
+
+        return format;
     }
 
 
@@ -169,20 +194,7 @@ class FlatUITheme extends Theme
     static public dynamic function onDisable (widget:Widget) : Void
     {
         #if stablexui_flash
-            if (__grayscaleFilter == null) {
-                __grayscaleFilter = new flash.filters.ColorMatrixFilter([
-                    1.2 * 0.2225, 1.2 * 0.7169, 1.2 * 0.0606, 0, 0,
-                    1.2 * 0.2225, 1.2 * 0.7169, 1.2 * 0.0606, 0, 0,
-                    1.2 * 0.2225, 1.2 * 0.7169, 1.2 * 0.0606, 0, 0,
-                         0,      0,      0, 1, 0
-                ]);
-            }
-
-            var filters = widget.backend.filters;
-            if (filters == null) filters = [];
-            filters.push(__grayscaleFilter);
-
-            widget.backend.filters = filters;
+            sx.flatui.flash.Effects.grayscale(widget);
         #end
     }
 
@@ -193,26 +205,7 @@ class FlatUITheme extends Theme
     static public dynamic function onEnable (widget:Widget) : Void
     {
         #if stablexui_flash
-            var filters = widget.backend.filters;
-            if (filters != null && filters.length > 0) {
-                for (i in 0...filters.length) {
-                    if (Std.is(filters[i], flash.filters.ColorMatrixFilter)) {
-                        var matrix = cast(filters[i], flash.filters.ColorMatrixFilter).matrix;
-                        var isGrayscaleFilter = true;
-                        for (j in 0...matrix.length) {
-                            if (Math.abs(matrix[j] - __grayscaleFilter.matrix[j]) > 0.001) {
-                                isGrayscaleFilter = false;
-                                break;
-                            }
-                        }
-                        if (isGrayscaleFilter) {
-                            filters.remove(filters[i]);
-                            widget.backend.filters = filters;
-                            break;
-                        }
-                    }
-                }
-            }
+            sx.flatui.flash.Effects.removeGrayscale(widget);
         #end
     }
 
@@ -224,7 +217,7 @@ class FlatUITheme extends Theme
     {
         __defineSkins();
         __defineStyles();
-        Sx.addInitTask(Icons.loadBitmaps);
+        Sx.addInitTask(loadAssets);
     }
 
 

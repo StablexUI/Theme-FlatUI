@@ -1,9 +1,10 @@
-package sx.flatui.styles;
+package sx.flatui;
 
 import sx.flatui.FlatUITheme;
 import sx.widgets.TabBar;
 import sx.widgets.Widget;
 import sx.properties.Align;
+import sx.themes.Theme;
 
 
 

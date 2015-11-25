@@ -13,29 +13,26 @@ import sx.widgets.ScaleFit;
 class Icons
 {
     /**
-     * Set specified color for Bmp widget via tinting
+     * Description
      */
-    static public dynamic function setColor (bmp:Bmp, color:Int) : Void
+    static private function __createIcon (assetPath:String, size:Int, color:Int) : ScaleFit
     {
-        #if stablexui_flash
-            var ct = new flash.geom.ColorTransform();
-            ct.color = color - 0xFFFFFF;
-            var data = bmp.renderer.bitmapData;
-            data.colorTransform(data.rect, ct);
-        #end
-    }
+        var bmp = new Bmp();
+        bmp.bitmapData = FlatUITheme.getBitmapData(assetPath);
+        bmp.smooth = true;
 
+        if (size == -1) size = FlatUITheme.DEFAULT_ICO_SIZE;
+        if (color != -1) {
+            FlatUITheme.setBmpColor(bmp, color);
+        }
 
-    /**
-     * Load bitmaps for icons
-     */
-    static public dynamic function loadBitmaps (onReady:Void->Void) : Void
-    {
-        #if (stablexui_flash && !stablexui_custom_load_bitmaps)
-            sx.flatui.flash.Assets.loadBitmaps();
-        #else
-            onReady();
-        #end
+        var icon = new ScaleFit();
+        icon.width.dip  = size;
+        icon.height.dip = size;
+
+        icon.addChild(bmp);
+
+        return icon;
     }
 
 
@@ -136,29 +133,5 @@ class Icons
     static public function dropbox (size:Int = -1, color:Int = -1) return __createIcon('flatui/icons/dropbox.png', size, color);
     static public function android (size:Int = -1, color:Int = -1) return __createIcon('flatui/icons/android.png', size, color);
     static public function apple (size:Int = -1, color:Int = -1) return __createIcon('flatui/icons/apple.png', size, color);
-
-
-    /**
-     * Description
-     */
-    static private function __createIcon (assetPath:String, size:Int, color:Int) : ScaleFit
-    {
-        var bmp = new Bmp();
-        bmp.bitmapData = FlatUITheme.loadedBitmaps.get(assetPath).clone();
-        bmp.smooth = true;
-
-        if (size == -1) size = FlatUITheme.DEFAULT_ICO_SIZE;
-        if (color != -1) {
-            setColor(bmp, color);
-        }
-
-        var icon = new ScaleFit();
-        icon.width.dip  = size;
-        icon.height.dip = size;
-
-        icon.addChild(bmp);
-
-        return icon;
-    }
 
 }//class Icons
