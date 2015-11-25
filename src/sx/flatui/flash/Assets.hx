@@ -25,7 +25,6 @@ class Assets
     {
         #if openfl
             var bmp = openfl.Assets.getBitmapData(path);
-            throw Std.string({noBmp:bmp == null,path:path});
         #else
             var bmp = loadedBitmaps.get(path);
         #end
