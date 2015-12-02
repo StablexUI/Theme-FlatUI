@@ -17,6 +17,8 @@ using sx.Sx;
  */
 class TabButtonStyle
 {
+    /** Button style for vertical TabBar */
+    static public inline var VERTICAL = 'tabButtonVertical';
 
     /**
      * Define styles for TabButton
@@ -24,6 +26,7 @@ class TabButtonStyle
     static public function defineStyles (theme:FlatUITheme) : Void
     {
         theme.styles(TabButton).set(Theme.DEFAULT_STYLE, __defaultStyle);
+        theme.styles(TabButton).set(VERTICAL, __verticalStyle);
     }
 
 
@@ -32,9 +35,29 @@ class TabButtonStyle
      */
     static private function __defaultStyle (widget:Widget) : Void
     {
-        var tab : TabButton = cast widget;
+        var tab = __common(widget);
         tab.padding.horizontal.dip = FlatUITheme.DEFAULT_PADDING_HORIZONTAL;
         tab.height.pct = 100;
+    }
+
+
+    /**
+     * Buttons for vertical tab bars
+     */
+    static private function __verticalStyle (widget:Widget) : Void
+    {
+        var tab = __common(widget);
+        tab.padding.vertical.dip = FlatUITheme.DEFAULT_PADDING_VERTICAL;
+        tab.width.pct = 100;
+    }
+
+
+    /**
+     * Common part of all styles
+     */
+    static private function __common (widget:Widget) : TabButton
+    {
+        var tab : TabButton = cast widget;
 
         #if stablexui_flash
             tab.backend.buttonMode    = true;
@@ -54,7 +77,8 @@ class TabButtonStyle
 
         tab.down.skin = __skin(FlatUITheme.COLOR_TURQUOISE_LIGHT);
         tab.up.skin = __skin(FlatUITheme.COLOR_WET_ASPHALT_LIGHT);
-        // tab.hover.skin = __skin(FlatUITheme.COLOR_WET_ASPHALT);
+
+        return tab;
     }
 
 
