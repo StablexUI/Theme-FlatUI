@@ -1,6 +1,8 @@
 package sx.flatui;
 
+import sx.skins.Skin;
 import sx.themes.Theme;
+import sx.tween.Actuator;
 import sx.widgets.Popup;
 import sx.widgets.Widget;
 
@@ -30,6 +32,8 @@ class PopupStyle
     {
         var popup : Popup = cast widget;
         popup.skin = FlatUITheme.SKIN_INPUT_DEFAULT;
+        popup.overlay.skin = __overlaySkin();
+        popup.overlay.alpha = 0;
 
         popup.origin.set(0.5, 0.5);
         popup.offset.set(-0.5, -0.5);
@@ -41,8 +45,49 @@ class PopupStyle
         popup.top.pct = 50;
         popup.scaleX = popup.scaleY = 0;
 
-        popup.showEffect = function(p) return p.tween.backOut(0.3, p.scaleX = 1, p.scaleY = 1);
-        popup.closeEffect = function(p) return return p.tween.backIn(0.3, p.scaleX = 0, p.scaleY = 0);
+        popup.showEffect  = __showEffect;
+        popup.closeEffect = __closeEffect;
+    }
+
+
+    /**
+     * Creates skins for overlays
+     */
+    static private function __overlaySkin () : Skin
+    {
+        var skin = new sx.skins.PaintSkin();
+        skin.color = 0x000000;
+        skin.alpha = 0.3;
+
+        return skin;
+    }
+
+
+    /**
+     * Callback for `Popup.showEffect`
+     */
+    static private function __showEffect (popup:Popup) : Actuator
+    {
+        if (popup.overlay != null) {
+            popup.tween.linear(0.3, popup.overlay.alpha = 1);
+            return popup.tween.backOut(0.3, popup.scaleX = 1, popup.scaleY = 1);
+        } else {
+            return popup.tween.backOut(0.3, popup.scaleX = 1, popup.scaleY = 1);
+        }
+    }
+
+
+    /**
+     * Callback for `Popup.closeEffect`
+     */
+    static private function __closeEffect (popup:Popup) : Actuator
+    {
+        if (popup.overlay != null) {
+            popup.tween.linear(0.3, popup.overlay.alpha = 0);
+            return popup.tween.backIn(0.3, popup.scaleX = 0, popup.scaleY = 0);
+        } else {
+            return popup.tween.backIn(0.3, popup.scaleX = 0, popup.scaleY = 0);
+        }
     }
 
 
