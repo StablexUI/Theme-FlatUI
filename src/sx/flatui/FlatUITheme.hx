@@ -7,18 +7,6 @@ import sx.layout.LineLayout;
 import sx.skins.ASkin;
 import sx.skins.PaintSkin;
 import sx.skins.Skin;
-import sx.flatui.Icons;
-import sx.flatui.ButtonStyle;
-import sx.flatui.CheckBoxStyle;
-import sx.flatui.ProgressBarStyle;
-import sx.flatui.RadioStyle;
-import sx.flatui.SliderStyle;
-import sx.flatui.ScrollBarStyle;
-import sx.flatui.TextInputStyle;
-import sx.flatui.TabBarStyle;
-import sx.flatui.TabButtonStyle;
-import sx.flatui.TextStyle;
-import sx.flatui.ScrollStyle;
 import sx.widgets.Bmp;
 import sx.widgets.Text;
 import sx.widgets.Widget;
@@ -306,6 +294,7 @@ class FlatUITheme extends Theme
         TabButtonStyle.defineStyles(this);
         ScrollBarStyle.defineStyles(this);
         ScrollStyle.defineStyles(this);
+        PopupStyle.defineStyles(this);
     }
 
 
