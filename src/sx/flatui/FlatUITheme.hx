@@ -94,6 +94,9 @@ class FlatUITheme extends Theme
     static public var SKIN_BACKGROUND    = 'backgroundSkin';
     static public var SKIN_ASBESTOS      = 'asbestosSkin';
 
+    /** Skin to use for overlays of popup and other similar elements */
+    static public inline var SKIN_OVERLAY = 'overlaySkin';
+
     static public var FONT_COLOR_LIGHT = 0xFFFFFF;
     static public var FONT_COLOR_DARK  = COLOR_WET_ASPHALT;
     static public var FONT_SIZE_BIG    = 18;
@@ -275,6 +278,8 @@ class FlatUITheme extends Theme
             color = map.get(skinName);
             Sx.registerSkin(skinName, __borderSkinGenerator.bind(color));
         }
+
+        Sx.registerSkin(SKIN_OVERLAY, __overlaySkin);
     }
 
 
@@ -321,6 +326,19 @@ class FlatUITheme extends Theme
         skin.corners.dip = DEFAULT_CORNER_RADIUS;
         skin.border.color = color;
         skin.border.width.dip = DEFAULT_BORDER_WIDTH;
+
+        return skin;
+    }
+
+
+    /**
+     * Creates skins for overlays
+     */
+    static private function __overlaySkin () : Skin
+    {
+        var skin = new sx.skins.PaintSkin();
+        skin.color = 0x000000;
+        skin.alpha = 0.3;
 
         return skin;
     }

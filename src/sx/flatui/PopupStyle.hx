@@ -32,7 +32,7 @@ class PopupStyle
     {
         var popup : Popup = cast widget;
         popup.skin = FlatUITheme.SKIN_INPUT_DEFAULT;
-        popup.overlay.skin = __overlaySkin();
+        popup.overlay.skin = FlatUITheme.SKIN_OVERLAY;
         popup.overlay.alpha = 0;
 
         popup.origin.set(0.5, 0.5);
@@ -46,19 +46,6 @@ class PopupStyle
 
         popup.showEffect  = __showEffect;
         popup.closeEffect = __closeEffect;
-    }
-
-
-    /**
-     * Creates skins for overlays
-     */
-    static private function __overlaySkin () : Skin
-    {
-        var skin = new sx.skins.PaintSkin();
-        skin.color = 0x000000;
-        skin.alpha = 0.3;
-
-        return skin;
     }
 
 
