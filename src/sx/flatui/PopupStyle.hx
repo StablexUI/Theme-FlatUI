@@ -43,7 +43,6 @@ class PopupStyle
 
         popup.left.pct = 50;
         popup.top.pct = 50;
-        popup.scaleX = popup.scaleY = 0;
 
         popup.showEffect  = __showEffect;
         popup.closeEffect = __closeEffect;
@@ -68,6 +67,10 @@ class PopupStyle
      */
     static private function __showEffect (popup:Popup) : Actuator
     {
+        if (popup.scaleX == 1 && popup.scaleY == 1) {
+            popup.scaleX = popup.scaleY = 0;
+        }
+
         if (popup.overlay != null) {
             popup.tween.linear(0.3, popup.overlay.alpha = 1);
             return popup.tween.backOut(0.3, popup.scaleX = 1, popup.scaleY = 1);
