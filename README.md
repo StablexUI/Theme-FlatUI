@@ -7,5 +7,5 @@ This theme is heavily based on [FlatUI Free bootstrap theme](http://designmodo.g
 Installation
 -----------------------
 ```
-haxelib git https://github.com/StablexUI/Theme-FlatUI stablexui-theme-flatui
+haxelib git stablexui-theme-flatui https://github.com/StablexUI/Theme-FlatUI master
 ```
