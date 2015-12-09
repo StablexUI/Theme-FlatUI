@@ -16,7 +16,7 @@ class PopupStyle
 {
 
     /**
-     * Set text field styles
+     * Set popup styles
      */
     @:noCompletion
     static public inline function defineStyles (theme:FlatUITheme) : Void

@@ -96,6 +96,8 @@ class FlatUITheme extends Theme
 
     /** Skin to use for overlays of popup and other similar elements */
     static public inline var SKIN_OVERLAY = 'overlaySkin';
+    /** Skin for callouts */
+    static public inline var SKIN_CALLOUT = 'calloutSkin';
 
     static public var FONT_COLOR_LIGHT = 0xFFFFFF;
     static public var FONT_COLOR_DARK  = COLOR_WET_ASPHALT;
@@ -279,7 +281,8 @@ class FlatUITheme extends Theme
             Sx.registerSkin(skinName, __borderSkinGenerator.bind(color));
         }
 
-        Sx.registerSkin(SKIN_OVERLAY, __overlaySkin);
+        Sx.registerSkin(SKIN_OVERLAY, __borderlessSkinGenerator.bind(0x000000, 0.3, 0));
+        Sx.registerSkin(SKIN_CALLOUT, __borderlessSkinGenerator.bind(COLOR_WET_ASPHALT, 1, DEFAULT_CORNER_RADIUS));
     }
 
 
@@ -300,6 +303,7 @@ class FlatUITheme extends Theme
         ScrollBarStyle.defineStyles(this);
         ScrollStyle.defineStyles(this);
         PopupStyle.defineStyles(this);
+        CalloutStyle.defineStyles(this);
     }
 
 
@@ -332,13 +336,16 @@ class FlatUITheme extends Theme
 
 
     /**
-     * Creates skins for overlays
+     * Creates PaintSkin without borders
      */
-    static private function __overlaySkin () : Skin
+    static private function __borderlessSkinGenerator (color:Int, alpha:Float, radius:Float) : Skin
     {
         var skin = new sx.skins.PaintSkin();
-        skin.color = 0x000000;
-        skin.alpha = 0.3;
+        skin.color = color;
+        skin.alpha = alpha;
+        if (radius != 0) {
+            skin.corners.dip = radius;
+        }
 
         return skin;
     }

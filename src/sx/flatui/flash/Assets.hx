@@ -43,6 +43,18 @@ class Assets
             onReady();
         #else
             var data : BitmapData;
+            data = MacroAssets.bitmapData('../../../../assets/flatui/callout-arrow-top.png');
+            loadedBitmaps.set('assets/flatui/callout-arrow-top.png', data);
+
+            data = MacroAssets.bitmapData('../../../../assets/flatui/callout-arrow-bottom.png');
+            loadedBitmaps.set('assets/flatui/callout-arrow-bottom.png', data);
+
+            data = MacroAssets.bitmapData('../../../../assets/flatui/callout-arrow-left.png');
+            loadedBitmaps.set('assets/flatui/callout-arrow-left.png', data);
+
+            data = MacroAssets.bitmapData('../../../../assets/flatui/callout-arrow-right.png');
+            loadedBitmaps.set('assets/flatui/callout-arrow-right.png', data);
+
             data = MacroAssets.bitmapData('../../../../assets/flatui/icons/triangle-up.png');
             loadedBitmaps.set('assets/flatui/icons/triangle-up.png', data);
 

@@ -18,12 +18,14 @@ using sx.Sx;
  */
 class TextStyle
 {
+    static public inline var LIGHT   = 'lightText';
     static public inline var ERROR   = 'errorText';
     static public inline var SUCCESS = 'successText';
 
     /** Which skins to use for each style */
     static private var __styles = [
-        Theme.DEFAULT_STYLE => {fontColor:FlatUITheme.COLOR_WET_ASPHALT, bold:false},
+        Theme.DEFAULT_STYLE => {fontColor:FlatUITheme.FONT_COLOR_DARK, bold:false},
+        LIGHT               => {fontColor:FlatUITheme.FONT_COLOR_LIGHT, bold:false},
         SUCCESS             => {fontColor:FlatUITheme.COLOR_EMERALD, bold:true},
         ERROR               => {fontColor:FlatUITheme.COLOR_ALIZARIN, bold:true}
     ];
