@@ -96,7 +96,7 @@ class CalloutStyle
             case Right  : callout.offset.right;
         }
 
-        return callout.tween.cubicIn(0.15, callout.alpha = 0, offset.dip = -30);
+        return callout.tween.cubicOut(0.15, callout.alpha = 0, offset.dip = -30);
     }
 
 
