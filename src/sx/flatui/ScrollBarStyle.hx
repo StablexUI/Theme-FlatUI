@@ -20,6 +20,7 @@ import sx.widgets.Button;
 class ScrollBarStyle
 {
     /** Style names */
+    static public inline var HORIZONTAL        = sx.themes.Theme.DEFAULT_STYLE;
     static public inline var VERTICAL          = 'verticalScrollBar';
     static public inline var WARNING           = 'warningScrollBar';
     static public inline var WARNING_VERTICAL  = 'vertical_warningScrollBar';

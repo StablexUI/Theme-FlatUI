@@ -32,9 +32,7 @@ class ScrollStyle
     {
         var scroll : Scroll = cast widget;
 
-        scroll.horizontalBar = new ScrollBar();
         scroll.horizontalBar.bottom.dip = 2;
-        scroll.verticalBar = new ScrollBar();
         scroll.verticalBar.style = ScrollBarStyle.VERTICAL;
         scroll.verticalBar.right.dip = 2;
     }
