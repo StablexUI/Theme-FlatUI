@@ -96,6 +96,7 @@ class ScrollBarStyle
         thumb.releaseOnPointerOut = false;
         thumb.up.skin = thumb.down.skin;
         thumb.height.dip = DEFAULT_SIZE;
+        thumb.width.min.dip = 10;
 
         bar.thumb = thumb;
     }
@@ -118,6 +119,7 @@ class ScrollBarStyle
         thumb.releaseOnPointerOut = false;
         thumb.up.skin = thumb.down.skin;
         thumb.width.dip = DEFAULT_SIZE;
+        thumb.height.min.dip = 10;
 
         bar.thumb = thumb;
     }
