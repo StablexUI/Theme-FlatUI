@@ -1,7 +1,6 @@
 package sx.flatui;
 
 import sx.flatui.FlatUITheme;
-import sx.themes.macro.Assets;
 import sx.widgets.Bmp;
 import sx.widgets.ScaleFit;
 
