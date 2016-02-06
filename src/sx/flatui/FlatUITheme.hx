@@ -218,12 +218,14 @@ class FlatUITheme extends Theme
      * Applies style from `widget.style` to `widget`.
      *
      * Does nothing if `widget.style` is `null` or does not exist.
+     * By default theme looks for styles defined for class of a `widget`, but you can specify another class with `useClass`
+     * This option become handy when you extend widgets, but want styles of parent class to be applied to widgets of descendant class.
      */
-    override public function apply (widget:Widget) : Void
+    override public function apply (widget:Widget, useClass:Class<Widget> = null) : Void
     {
         __setSpecialStyleWhenDisabled(widget);
 
-        super.apply(widget);
+        super.apply(widget, useClass);
     }
 
 
