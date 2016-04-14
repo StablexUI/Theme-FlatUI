@@ -14,7 +14,7 @@ class Icons
     /**
      * Create icon using bitmap from `assetsPath` scaled to `size` DIPs and tinted to `color`
      */
-    static public function createIcon (assetPath:String, size:Int, color:Int) : ScaleFit
+    static public function createIcon (assetPath:String, size:Int = -1, color:Int = -1) : ScaleFit
     {
         var bmp = new Bmp();
         bmp.bitmapData = FlatUITheme.getBitmapData(assetPath);
