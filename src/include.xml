@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-    <assets path="../assets/flatui" rename="assets/flatui" />
+    <assets path="../assets/flatui" rename="assets/flatui" if="!FLATUI_SKIP_ICONS"/>
 </project>
